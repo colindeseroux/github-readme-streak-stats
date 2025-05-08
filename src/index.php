@@ -11,6 +11,15 @@ require_once "card.php";
 $dotenv = \Dotenv\Dotenv::createImmutable(dirname(__DIR__, 1));
 $dotenv->safeLoad();
 
+// if environment variables are not loaded, load from .env file directely
+if (!isset($_SERVER["TOKEN"])) {
+    $env = parse_ini_file("/var/www/html/.env");
+
+    foreach ($env as $key => $value) {
+        $_SERVER[$key] = $value;
+    }
+}
+
 // if environment variables are not loaded, display error
 if (!isset($_SERVER["TOKEN"])) {
     $message = file_exists(dirname(__DIR__ . "../.env", 1))

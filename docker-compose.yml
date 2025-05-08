@@ -1,0 +1,11 @@
+services:
+
+  streak-stats:
+    build: .
+    image: github-streak-stats:latest
+    container_name: github-streak-stats
+    restart: always
+    ports:
+      - "$port:80"
+    env_file:
+      - .env
